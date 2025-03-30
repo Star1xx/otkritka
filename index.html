@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Для тебя 💌</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 932px;
+            width: 430px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            opacity: 0; /* Начальная прозрачность для всей страницы */
+            animation: fadeIn 1.5s ease-in-out forwards; /* Анимация появления */
+        }
+
+        /* Анимация плавного появления */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .main-text {
+                   position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 20; /* Увеличиваем z-index чтобы текст был поверх фото */
+            width: 80%;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
+        }
+
+         .signature {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            z-index: 30;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 2s forwards;
+        }
+        .meme {
+            position: absolute;
+            width: 120px;
+            height: auto;
+            opacity: 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease; /* Плавные эффекты при наведении */
+        }
+
+        /* Анимация для каждого мема с разной задержкой */
+        .meme-1 {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-8deg);
+            animation: fadeIn 0.8s ease-in-out 0.8s forwards, float 3s ease-in-out infinite alternate;
+        }
+        .meme-2 {
+            top: 20px;
+            right: 20px;
+            transform: rotate(12deg);
+            animation: fadeIn 0.8s ease-in-out 1s forwards, float 3s ease-in-out 0.5s infinite alternate;
+        }
+        .meme-3 {
+            bottom: 20px;
+            left: 20px;
+            transform: rotate(5deg);
+            animation: fadeIn 0.8s ease-in-out 1.2s forwards, float 3s ease-in-out 1s infinite alternate;
+        }
+        .meme-4 {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(-15deg);
+            animation: fadeIn 0.8s ease-in-out 1.4s forwards, float 3s ease-in-out 1.5s infinite alternate;
+            width: 70%; /* Увеличиваем размер */
+            max-height: 40%;
+            object-fit: cover;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            animation: fadeIn 0.8s ease-in-out 1.4s forwards;
+            z-index: 10; /* Чтобы текст был поверх */
+        }
+
+        /* Эффект "плавания" для мемов */
+        @keyframes float {
+            from { transform: translateY(0) rotate(-8deg); }
+            to { transform: translateY(-10px) rotate(-8deg); }
+        }
+
+        /* Эффекты при наведении */
+        .meme:hover {
+            transform: scale(1.1) !important;
+            opacity: 1 !important;
+            z-index: 20;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-text">
+    <h1>Открытка, когда живешь в мире технологий</h1>
+    <p>Эта фотография из самого нашего счастливого периода</p>
+    <p>По нашему скромному, общему мнению</p>
+    <p>Вернуться туда мы не можем, но сделать будущее как там - ДА!</p>
+</div>
+
+<!-- Мемы с плавным появлением -->
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjR1em93bzF5Z2hnOTJ5MGswOXZkdGluMnBjZHgxNmszdG9kYW00ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/1OrIIOIcRTDaNidc5p/giphy.gif" class="meme meme-1" alt="Мем 1">
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjR1em93bzF5Z2hnOTJ5MGswOXZkdGluMnBjZHgxNmszdG9kYW00ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/yASFCj2K0MGeASqSom/giphy.gif" class="meme meme-3" alt="Мем 3">
+<img src="spinning_cat_v2.gif" class="meme meme-2" alt="Мем 2">
+<img src="321.jpg" class="meme meme-4" alt="Мем 4">
+<audio autoplay loop>
+    <source src="uiia.mp3" type="audio/mpeg">
+</audio>
+<div class="signature">
+    С любовью, твой Star1x ❤️<br>
+    30.03.2025
+</div>
+<script>
+
+
+        // Автозапуск с разрешения пользователя (для мобильных устройств)
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('background-audio');
+            audio.play().catch(e => console.log('Автовоспроизведение запрещено'));
+        }, { once: true });
+    </script>
+</body>
+</html>
