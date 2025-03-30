@@ -152,23 +152,35 @@
     30.03.2025
 </div>
 <script>
-        // Функция для управления воспроизведением
-        function toggleAudio() {
-            const audio = document.getElementById('background-audio');
-            if (audio.paused) {
-                audio.play();
-                document.querySelector('.audio-control').textContent = '🔊';
-            } else {
-                audio.pause();
-                document.querySelector('.audio-control').textContent = '🔇';
-            }
+   // Хак для iOS: видео помогает запустить аудио
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('background-audio');
+        const video = document.getElementById('video-trigger');
+
+        // Пытаемся запустить аудио через видео-триггер
+        function tryPlayAudio() {
+            video.play().then(() => {
+                audio.play().catch(e => console.log("Аудио не запустилось:", e));
+            }).catch(e => console.log("Видео не запустилось:", e));
         }
 
-        // Автозапуск с разрешения пользователя (для мобильных устройств)
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('background-audio');
-            audio.play().catch(e => console.log('Автовоспроизведение запрещено'));
+        // Первый клик по странице
+        document.body.addEventListener('click', function() {
+            tryPlayAudio();
+            this.removeEventListener('click', arguments.callee);
         }, { once: true });
+
+        // Автозапуск для десктопов
+        if (!navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+            tryPlayAudio();
+        }
+    });
     </script>
+<div class="video-wrapper">
+    <!-- Невидимое видео (1x1 пиксель) -->
+    <video id="video-trigger" muted autoplay playsinline loop style="position:absolute; width:1px; height:1px; opacity:0;">
+        <source src="22.mp4" type="video/mp4">
+    </video>
+</div>
 </body>
 </html>
