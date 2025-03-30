@@ -136,13 +136,41 @@
     30.03.2025
 </div>
 <script>
+   // Обновлённый скрипт для аудио
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('background-audio');
 
+        // Функция для запуска по взаимодействию
+        function enableAudio() {
+            audio.volume = 0.3;
+            const playPromise = audio.play();
 
-        // Автозапуск с разрешения пользователя (для мобильных устройств)
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('background-audio');
-            audio.play().catch(e => console.log('Автовоспроизведение запрещено'));
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Показываем кнопку если автостарт запрещён
+                    document.querySelector('.audio-control').style.display = 'block';
+                });
+            }
+        }
+
+        // Запуск по первому клику
+        document.body.addEventListener('click', function() {
+            enableAudio();
+            // Убираем обработчик после первого клика
+            document.body.removeEventListener('click', arguments.callee);
         }, { once: true });
+
+        // Кнопка ручного управления
+        window.toggleAudio = function() {
+            if (audio.paused) {
+                audio.play();
+                this.textContent = '🔊';
+            } else {
+                audio.pause();
+                this.textContent = '🔇';
+            }
+        }
+    });
     </script>
 </body>
 </html>
