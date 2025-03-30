@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            height: 880px;
+            height: 800px;
             width: 430px;
             overflow-y: auto; /* Добавляем прокрутку если контент не влезает */
             background: linear-gradient(45deg, #ff9a9e, #fad0c4);
@@ -113,6 +113,17 @@
         p {
             font-size: 18px;
         }
+        // Кнопка ручного управления
+        window.toggleAudio = function() {
+            if (audio.paused) {
+                audio.play();
+                this.textContent = '🔊';
+            } else {
+                audio.pause();
+                this.textContent = '🔇';
+            }
+        }
+    });
     </style>
 </head>
 <body>
