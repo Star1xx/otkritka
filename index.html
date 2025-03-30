@@ -4,11 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Для тебя 💌</title>
+
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 800px;
+            height: 770px;
             width: 430px;
             overflow-y: auto; /* Добавляем прокрутку если контент не влезает */
             background: linear-gradient(45deg, #ff9a9e, #fad0c4);
@@ -113,17 +114,18 @@
         p {
             font-size: 18px;
         }
-        // Кнопка ручного управления
-        window.toggleAudio = function() {
-            if (audio.paused) {
-                audio.play();
-                this.textContent = '🔊';
-            } else {
-                audio.pause();
-                this.textContent = '🔇';
-            }
+        .audio-control {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
-    });
     </style>
 </head>
 <body>
@@ -139,6 +141,7 @@
 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjR1em93bzF5Z2hnOTJ5MGswOXZkdGluMnBjZHgxNmszdG9kYW00ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/yASFCj2K0MGeASqSom/giphy.gif" class="meme meme-3" alt="Мем 3">
 <img src="spinning_cat_v2.gif" class="meme meme-2" alt="Мем 2">
 <img src="321.jpg" class="meme meme-4" alt="Мем 4">
+<button class="audio-control" onclick="toggleAudio()">🔊</button>
 <audio autoplay loop>
     <source src="uiia.mp3" type="audio/mpeg">
 </audio>
@@ -147,41 +150,23 @@
     30.03.2025
 </div>
 <script>
-   // Обновлённый скрипт для аудио
-    document.addEventListener('DOMContentLoaded', function() {
-        const audio = document.getElementById('background-audio');
-
-        // Функция для запуска по взаимодействию
-        function enableAudio() {
-            audio.volume = 0.3;
-            const playPromise = audio.play();
-
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // Показываем кнопку если автостарт запрещён
-                    document.querySelector('.audio-control').style.display = 'block';
-                });
-            }
-        }
-
-        // Запуск по первому клику
-        document.body.addEventListener('click', function() {
-            enableAudio();
-            // Убираем обработчик после первого клика
-            document.body.removeEventListener('click', arguments.callee);
-        }, { once: true });
-
-        // Кнопка ручного управления
-        window.toggleAudio = function() {
+        // Функция для управления воспроизведением
+        function toggleAudio() {
+            const audio = document.getElementById('background-audio');
             if (audio.paused) {
                 audio.play();
-                this.textContent = '🔊';
+                document.querySelector('.audio-control').textContent = '🔊';
             } else {
                 audio.pause();
-                this.textContent = '🔇';
+                document.querySelector('.audio-control').textContent = '🔇';
             }
         }
-    });
+
+        // Автозапуск с разрешения пользователя (для мобильных устройств)
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('background-audio');
+            audio.play().catch(e => console.log('Автовоспроизведение запрещено'));
+        }, { once: true });
     </script>
 </body>
 </html>
